@@ -12,14 +12,15 @@ const ProtetedAdmin = ({children})=>{
     useEffect(()=>{
         axios.post('http://localhost:8000/checkauth',{token}).then((res)=>{
             setCheck(false);
+            setUser(res.data.role)
             console.log(res.data);
           })
-    },[]);
+    },[check]);
     if(check)
     {
         return(<div>Loading...</div>)
     }
-    if(user=="admin" && !check)
+    else if(!check && user=="admin")
     {
         return children;
         

@@ -18,13 +18,13 @@ import axios from 'axios';
 function App() {
   const [token, setToken] = useState(localStorage.getItem("Token"));
   const [islogin,setislogin] = useState();
-  useEffect(()=>{
-    axios.post('http://localhost:8000/checkauth',{token}).then((res)=>{
-        setislogin(res.data.role);
-   })
-  },[islogin])
-  return (<div className="App">{islogin ? 
-    (<div>
+  // useEffect(()=>{
+  //   axios.post('http://localhost:8000/checkauth',{token}).then((res)=>{
+  //       setislogin(res.data.role);
+  //  })
+  // },[islogin])
+  return (
+  <div className="App">
     <UserContext.Provider value={[islogin,setislogin]}> 
   <BrowserRouter>
   <Header></Header>
@@ -42,8 +42,8 @@ function App() {
     </Routes>
     </BrowserRouter>
     </UserContext.Provider> 
-    </div>):(<div>Loading..<button onClick={setislogin("admin")}>Change</button></div>)}</div>
-  );
+    </div>
+    );
  }
 
 export default App;
