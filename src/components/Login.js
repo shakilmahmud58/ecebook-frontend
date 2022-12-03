@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import axios from "axios";
-import { UserContext } from "../Context/UserContext";
+import { UserContext} from "../Context/UserContext";
+import { UserIdContext } from "../Context/UserIdContext";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const[id,setId] = useContext(UserIdContext);
     const submitform=(e)=>{
 
         e.preventDefault();
@@ -20,9 +22,11 @@ function Login(props) {
             if(res.data.token)
             {
               setUser(res.data.role);
+              setId(res.data.id)
               localStorage.setItem('Token',res.data.token);
               if(res.data.role==="student")
               {
+                
                 navigate(`/profile/${res.data.id}`);
               }
               else
@@ -65,7 +69,6 @@ function Login(props) {
   <button type="submit" className="btn btn-primary" >Submit</button>
 </form>
 </div>
-<Link to='/profile/111'>Profile</Link>
       </div>
     );
   }

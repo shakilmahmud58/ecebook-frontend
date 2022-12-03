@@ -1,22 +1,33 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
+import { UserIdContext } from "../Context/UserIdContext";
 
 const ProtetedRoute = ({children})=>{
-    const [user, setUser] = useContext(UserContext)
     const token = localStorage.getItem("Token");
-    // axios.post('http://localhost:8000/checkauth',{token}).then((res)=>{
-    //     setUser(res.data.role);
-    //     console.log(res.data.role);
-    //   })
-    // const data = axios.post('http://localhost:8000/checkauth',{token});
-    //   console.log(data);
-    if(user=="student")
+    const [user, setUser] = useContext(UserContext)
+    const [userid, setUserid]= useContext(UserIdContext);
+    const [check, setCheck] =useState(true);
+    
+    useEffect(()=>{
+        axios.post('http://localhost:8000/checkauth',{token}).then((res)=>{
+           setUser(res.data.role);
+           setCheck(false)
+           setUserid(res.data.id);
+           console.log(res.data);
+        })
+    },[user,token])
+ 
+    if(check)
+    {
+        return <div>Loading...</div>
+    }
+    else if(user=="student" && !check)
     {
         return children;
     }
-    return <Navigate to='/login' replace/>
+    else return <Navigate to='/login' replace/>
     
 
 }

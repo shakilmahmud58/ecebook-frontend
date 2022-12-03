@@ -1,11 +1,14 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom"
 import { UserContext } from "../Context/UserContext";
+import { UserIdContext } from "../Context/UserIdContext";
 function Header() {
   const [user,setUser]= useContext(UserContext);
+  const [userid,setUserid]= useContext(UserIdContext);
   const logout=()=>{
     localStorage.removeItem("Token");
-    setUser(false);
+    setUser('');
+    setUserid('');
   } 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,13 +40,27 @@ function Header() {
   </ul>
 </div>
         </li>
+        {user=="student"?
         <li className="nav-item">
         <Link to="/notices" className="nav-link">Notices</Link>
-        </li>
+        </li>:''}
+        {user=="student"?
+        <li className="nav-item">
+        <Link to="/messenger" className="nav-link">Messenger</Link>
+        </li>:''}
+        {user=="admin"?
+        <li className="nav-item">
+        <Link to="/addadmin" className="nav-link">Add Admin</Link>
+        </li>:''}
+        {user=="student"?
+        <li className="nav-item">
+        <Link to={"/profile/"+userid} className="nav-link">Profile</Link>
+        </li>:''}
+        {!user?
         <li className="nav-item">
         <Link to="/signup" className="nav-link">Signup</Link>
-        </li>
-        <button onClick={logout}>Logout</button>
+        </li>:''}
+        {user? <button onClick={logout}>Logout</button>:''}
       </ul>
       <form className="d-flex">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
