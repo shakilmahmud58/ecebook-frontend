@@ -17,7 +17,7 @@ function Header() {
       <span className="navbar-toggler-icon"></span>
     </button>
     <Link className="navbar-brand" to="/">ECE</Link>
-    <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+    {/* <div className="collapse navbar-collapse" id="navbarTogglerDemo03"> */}
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
           <Link to="/" className="nav-link">Home</Link>
@@ -25,6 +25,16 @@ function Header() {
         <li className="nav-item">
         <Link to="/faculty_member" className="nav-link">Faculty</Link>
         </li>
+        {/* { !user ? 
+                <li className="nav-item">
+                <Link to="/live_msg" className="nav-link">Live Msg</Link>
+                </li>
+        :''}
+        { user?
+        <li className="nav-item">
+        <Link to="/admin_msg" className="nav-link">Live_Msg</Link>
+        </li>: ''
+          } */}
         <li className="nav-item">
         <div className="dropdown">
   <Link className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,13 +71,14 @@ function Header() {
         <Link to="/signup" className="nav-link">Signup</Link>
         </li>:''}
         {user? <button onClick={logout}>Logout</button>:''}
+  
       </ul>
       <form className="d-flex">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button className="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
-  </div>
+  {/* </div> */}
 </nav>
     );
   }

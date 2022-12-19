@@ -1,21 +1,28 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 
 function Student() {
+const navigate = useNavigate();
 const params = useParams();
-const [x, setx]=useState('');
+const [students, setstudents]=useState([]);
+const gotomessenger= (student)=>{
+    navigate(`/messenger/${student._id}`,{state:{student}});
+}
 useEffect(()=>{
-  axios.get('http://localhost:8000').then(res=>{
-    setx(res.data);
+  axios.post('http://localhost:8000/getstudents',{year:params.id}).then(res=>{
+    setstudents(res.data);
+    console.log(res.data);
   })
-})
+},[params.id])
   return (
     <div className="">
     This is the student page.
-    { params.id }
-    {x}
+    { students.map(student=>
+    <div key={student._id} className="m-2">{student.email}<button onClick={()=>gotomessenger(student)} className="btn btn-primary">Message</button></div>
+    )}
+      
     </div>
   );
 }

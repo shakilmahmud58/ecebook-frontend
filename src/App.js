@@ -17,6 +17,8 @@ import ProtetedAdmin from './Auth/ProtectedAdmin';
 import Addadmin from './components/Admin/Addadmin';
 import Messenger from './Messenger/Messenger';
 import axios from 'axios';
+import Anomsg from './Messenger/anomsg';
+import Anoadmin from './Messenger/anoadmin';
 function App() {
   const [token, setToken] = useState(localStorage.getItem("Token"));
   const [islogin,setislogin] = useState();
@@ -46,8 +48,11 @@ function App() {
     <Route path="/login" element={<Login />} />
     <Route path="/confirm/:token" element={<Login />} />
     <Route path="/faculty_member" element={<Faculty />} />
+    <Route path="/live_msg" element={<Anomsg />} />
+    <Route path="/admin_msg" element={<Anoadmin />} />
     <Route path="/notices" element={<ProtetedRoute><Notice /></ProtetedRoute>} />
     <Route path="/messenger" element={<ProtetedRoute><Messenger /></ProtetedRoute>} />
+    <Route path="/messenger/:id" element={<ProtetedRoute><Messenger /></ProtetedRoute>} />
     <Route path="/profile/:id" element={<ProtetedRoute><Profile /></ProtetedRoute>} />
     <Route path="/addadmin" element={<ProtetedAdmin><Addadmin/></ProtetedAdmin>} />
     </Routes>
